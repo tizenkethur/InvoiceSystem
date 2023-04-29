@@ -15,7 +15,7 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  return db.createTable("users", {
+  return db.createTable("roleTypes", {
     columns: {
       id: {
         type: "int",
@@ -25,31 +25,14 @@ exports.up = function (db) {
         unsigned: true,
       },
       name: { type: "string", notNull: true },
-      username: { type: "string", notNull: true },
-      password: { type: "string", notNull: true },
-      roleId: {
-        type: "int",
-        notNull: true,
-        foreignKey: {
-          name: "users_roleId_fk",
-          table: "roles",
-          rules: {
-            onDelete: "CASCADE",
-            onUpdate: "RESTRICT",
-          },
-          mapping: "id",
-        },
-        unsigned: true,
-      },
     },
     ifNotExists: true,
   });
 };
 
 exports.down = function (db) {
-  return db.dropTable("users");
+  return db.dropTable("roleTypes");
 };
-
 exports._meta = {
   version: 1,
 };

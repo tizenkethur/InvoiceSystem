@@ -15,7 +15,7 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  return db.createTable("invoices", {
+  return db.createTable("roles", {
     columns: {
       id: {
         type: "int",
@@ -24,12 +24,11 @@ exports.up = function (db) {
         primaryKey: true,
         unsigned: true,
       },
-      name: { type: "string", notNull: true },
       userId: {
         type: "int",
         notNull: true,
         foreignKey: {
-          name: "invoices_userId_fk",
+          name: "roles_userId_fk",
           table: "users",
           rules: {
             onDelete: "CASCADE",
@@ -39,18 +38,27 @@ exports.up = function (db) {
         },
         unsigned: true,
       },
-      dateOfIssue: { type: "string", notNull: true },
-      dueDate: { type: "string", notNull: true },
-      item: { type: "string", notNull: true },
-      description: { type: "string", notNull: true },
-      price: { type: "string", notNull: true },
+      roleId: {
+        type: "int",
+        notNull: true,
+        foreignKey: {
+          name: "roles_roleId_fk",
+          table: "roleTypes",
+          rules: {
+            onDelete: "CASCADE",
+            onUpdate: "RESTRICT",
+          },
+          mapping: "id",
+        },
+        unsigned: true,
+      },
     },
     ifNotExists: true,
   });
 };
 
 exports.down = function (db) {
-  return db.dropTable("invoices");
+  return db.dropTable("roles");
 };
 
 exports._meta = {
