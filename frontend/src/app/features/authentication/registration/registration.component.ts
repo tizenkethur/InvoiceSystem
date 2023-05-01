@@ -18,10 +18,7 @@ export class RegistrationComponent {
       Validators.required,
       Validators.minLength(8),
     ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
-    ]),
+    role: new FormControl('', Validators.required),
   });
 
   get username(): AbstractControl {
@@ -32,8 +29,9 @@ export class RegistrationComponent {
     return this.form.get('password');
   }
 
-  get email(): AbstractControl {
-    return this.form.get('email');
+  get role(): AbstractControl {
+    console.log(this.form.get('role'));
+    return this.form.get('role');
   }
 
   register(): void {
