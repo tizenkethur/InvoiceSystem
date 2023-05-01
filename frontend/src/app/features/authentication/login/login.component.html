@@ -26,6 +26,7 @@
           mat-raised-button
           class="auth-button"
           color="primary"
+          [disabled]="form.invalid"
           (click)="login()"
         >
           Login

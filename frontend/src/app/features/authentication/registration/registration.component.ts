@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/AuthService/auth-service.service';
 
 @Component({
   selector: 'app-registration',
@@ -21,6 +22,8 @@ export class RegistrationComponent {
     role: new FormControl('', Validators.required),
   });
 
+  constructor(private authService: AuthService) {}
+
   get username(): AbstractControl {
     return this.form.get('username');
   }
@@ -30,8 +33,11 @@ export class RegistrationComponent {
   }
 
   get role(): AbstractControl {
-    console.log(this.form.get('role'));
     return this.form.get('role');
+  }
+
+  onChange() {
+    this.authService.checkIfUsernameExists(this.username.value).subscribe();
   }
 
   register(): void {

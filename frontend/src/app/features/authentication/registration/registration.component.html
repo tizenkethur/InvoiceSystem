@@ -10,7 +10,7 @@
       <h2>Create your account</h2>
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
-        <input matInput formControlName="username" />
+        <input matInput formControlName="username" (change)="onChange()" />
         <mat-error *ngIf="username.hasError('required')"
           >Username is required.</mat-error
         >
@@ -44,6 +44,7 @@
         color="primary"
         class="auth-button"
         (click)="register()"
+        [disabled]="form.invalid"
       >
         Register
       </button>

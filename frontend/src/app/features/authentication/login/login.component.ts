@@ -18,7 +18,6 @@ export class LoginComponent {
       Validators.required,
       Validators.minLength(8),
     ]),
-    role: new FormControl('', Validators.required),
   });
 
   get username(): AbstractControl {
