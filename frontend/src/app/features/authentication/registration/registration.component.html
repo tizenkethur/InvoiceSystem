@@ -1,14 +1,11 @@
-<div id="main-container">
-  <div id="form-holder">
-    <div id="button-holder">
-      <button
-        mat-fab
-        color="primary"
-        aria-label="Example icon button with a delete icon"
-      >
+<div class="main-container">
+  <div class="form-holder">
+    <div class="button-holder">
+      <button mat-fab color="primary" routerLink="/login">
         <mat-icon>arrow_back</mat-icon>
       </button>
     </div>
+
     <form [formGroup]="form">
       <h2>Create your account</h2>
       <mat-form-field appearance="outline">
@@ -31,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-select placeholder="Choose a role" formControlName="role">
+        <mat-select placeholder="Choose a role*" formControlName="role">
           <mat-option value="Admin" disabled>Admin</mat-option>
           <mat-option value="Book-keeper">Book keeper</mat-option>
           <mat-option value="User">User</mat-option>
@@ -41,7 +38,14 @@
         >
       </mat-form-field>
 
-      <button mat-button color="primary" (click)="register()">Register</button>
+      <button
+        mat-button
+        class="auth-button"
+        color="primary"
+        (click)="register()"
+      >
+        Register
+      </button>
     </form>
   </div>
 </div>
