@@ -10,7 +10,7 @@
       <h2>Create your account</h2>
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
-        <input matInput formControlName="username" (change)="onChange()" />
+        <input matInput formControlName="username" (keyup)="onChange()" />
         <mat-error *ngIf="username.hasError('required')"
           >Username is required.</mat-error
         >

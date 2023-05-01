@@ -37,7 +37,13 @@ export class RegistrationComponent {
   }
 
   onChange() {
-    this.authService.checkIfUsernameExists(this.username.value).subscribe();
+    this.authService
+      .checkIfUsernameExists(this.username.value)
+      .subscribe((v) => {
+        if (v) {
+          alert('This username is already exists.');
+        }
+      });
   }
 
   register(): void {

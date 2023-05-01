@@ -11,7 +11,7 @@ export class AuthService {
 
   checkIfUsernameExists(username: string): Observable<boolean> {
     return this.http.get<boolean>(
-      `${environment.apiUrl}/user/checkUsername/:${username}`
+      `${environment.apiUrl}/user/checkUsername/${username}`
     );
   }
 }
