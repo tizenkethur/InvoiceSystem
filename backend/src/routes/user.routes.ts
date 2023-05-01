@@ -8,4 +8,6 @@ userRouter.get(
   userController.checkIfUsernameExists
 );
 
+userRouter.post("/register", userController.register);
+
 export default userRouter;

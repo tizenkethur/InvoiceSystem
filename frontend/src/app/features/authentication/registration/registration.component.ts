@@ -47,9 +47,9 @@ export class RegistrationComponent {
   }
 
   register(): void {
-    // if (this.form.valid) {
-    //   const user: UserRegistrationRequestModel = this.form.getRawValue();
-    //   this.authenticationService.register(user).subscribe();
-    // }
+    if (this.form.valid) {
+      const user = this.form.getRawValue();
+      this.authService.register(user).subscribe();
+    }
   }
 }
