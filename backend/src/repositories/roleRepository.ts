@@ -11,8 +11,7 @@ export const roleRepository = {
   },
 
   async registerRole(userId: number, roleTypeId: number): Promise<number> {
-      const query: string = `INSERT INTO roles (userId, roleTypeId) VALUES (?,?)`;
-      console.log(userId, );
+    const query: string = `INSERT INTO roles (userId, roleTypeId) VALUES (?,?)`;
     const regResult = await db.query<OkPacket>(query, [
       userId.toString(),
       roleTypeId.toString(),

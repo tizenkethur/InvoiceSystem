@@ -23,7 +23,6 @@ export const userService = {
       hashedPassword
     );
 
-    const newRoleId = await roleService.registerRole(newUserId, userData.role);
-    console.log("newRoleId", newRoleId);
+    await roleService.registerRole(newUserId, userData.role);
   },
 };

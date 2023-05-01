@@ -56,7 +56,6 @@ export const userController = {
       role,
     };
 
-    console.log(registrationData);
     try {
       await userService.registerUser(registrationData);
       res.status(201).send();
