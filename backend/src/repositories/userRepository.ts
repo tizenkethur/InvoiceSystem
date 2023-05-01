@@ -16,4 +16,18 @@ export const userRepository = {
 
     return regResult.insertId;
   },
+
+  async getUserByName(username: string): Promise<UserDomainModel> {
+    const query: string = `SELECT
+                                *
+                            FROM
+                                users
+                            WHERE
+                                username = ?
+      `;
+
+    const userList = await db.query<UserDomainModel[]>(query, [username]);
+
+    return userList[0];
+  },
 };

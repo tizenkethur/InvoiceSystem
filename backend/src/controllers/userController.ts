@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { badRequestError } from "../services/generalErrorService";
 import { userService } from "../services/userService";
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
+import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
 
 export const userController = {
   async checkIfUsernameExists(req: Request, res: Response, next: NextFunction) {
@@ -61,6 +62,41 @@ export const userController = {
       res.status(201).send();
     } catch (err) {
       next(err);
+    }
+  },
+
+  async login(
+    request: Request<UserLoginRequestViewModel>,
+    response: Response<void>,
+    next: NextFunction
+  ) {
+    const { username, password } = request.body;
+
+    if (!username && !password) {
+      next(badRequestError("All fields are required"));
+      return;
+    }
+
+    if (!password) {
+      next(badRequestError("Password is required"));
+      return;
+    }
+
+    if (!username) {
+      next(badRequestError("Username is required"));
+      return;
+    }
+
+    const loginData: UserLoginRequestViewModel = {
+      username: username,
+      password: password,
+    };
+
+    try {
+      await userService.login(loginData);
+      response.status(200).send();
+    } catch (error) {
+      next(error);
     }
   },
 };

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/AuthService/auth-service.service';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -20,6 +21,8 @@ export class LoginComponent {
     ]),
   });
 
+  constructor(private authService: AuthService) {}
+
   get username(): AbstractControl {
     return this.form.get('username');
   }
@@ -28,5 +31,9 @@ export class LoginComponent {
     return this.form.get('password');
   }
 
-  login() {}
+  login(): void {
+    if (this.form.valid) {
+      this.authService.login(this.form.getRawValue()).subscribe();
+    }
+  }
 }

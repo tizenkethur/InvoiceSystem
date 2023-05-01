@@ -1,8 +1,9 @@
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
 import { userRepository } from "../repositories/userRepository";
-import { conflictError } from "./generalErrorService";
+import { conflictError, unauthorizedError } from "./generalErrorService";
 import { passwordService } from "./passwordService";
 import { roleService } from "./roleService";
+import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -24,5 +25,21 @@ export const userService = {
     );
 
     await roleService.registerRole(newUserId, userData.role);
+  },
+
+  async login(userData: UserLoginRequestViewModel): Promise<void> {
+    const getUserByName = await userRepository.getUserByName(userData.username);
+
+    if (
+      !getUserByName ||
+      !passwordService.comparePasswords(
+        userData.password,
+        getUserByName.password
+      )
+    ) {
+      throw unauthorizedError("Username or password is incorrect!");
+    }
+
+    return;
   },
 };

@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'main',
+    loadChildren: () =>
+      import('./features/main/main.module').then((m) => m.MainModule),
+  },
+  {
     path: 'register',
     loadChildren: () =>
       import(
