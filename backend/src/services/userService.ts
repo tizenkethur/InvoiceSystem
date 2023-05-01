@@ -2,6 +2,7 @@ import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequ
 import { userRepository } from "../repositories/userRepository";
 import { conflictError } from "./generalErrorService";
 import { passwordService } from "./passwordService";
+import { roleService } from "./roleService";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -10,7 +11,8 @@ export const userService = {
 
   async registerUser(userData: UserRegistrationRequestModel): Promise<void> {
     const userNameCheck = await this.checkIfUsernameExists(userData.username);
-    if (!userNameCheck) {
+
+    if (userNameCheck) {
       throw conflictError("Username is already taken.");
     }
 
@@ -20,8 +22,8 @@ export const userService = {
       userData.username,
       hashedPassword
     );
-    // getRoleTypeIdByRoleName from roleTypes table
 
-    // const newRoleId = await userRepository.registerRole(newUserId, roleName);
+    const newRoleId = await roleService.registerRole(newUserId, userData.role);
+    console.log("newRoleId", newRoleId);
   },
 };

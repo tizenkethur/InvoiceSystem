@@ -15,7 +15,7 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-  return db.createTable("roleTypes", {
+  return db.createTable("users", {
     columns: {
       id: {
         type: "int",
@@ -25,13 +25,15 @@ exports.up = function (db) {
         unsigned: true,
       },
       name: { type: "string", notNull: true },
+      username: { type: "string", notNull: true },
+      password: { type: "string", notNull: true },
     },
     ifNotExists: true,
   });
 };
 
 exports.down = function (db) {
-  return db.dropTable("roleTypes");
+  return db.dropTable("users");
 };
 exports._meta = {
   version: 1,

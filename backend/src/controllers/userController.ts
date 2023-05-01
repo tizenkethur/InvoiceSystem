@@ -56,9 +56,9 @@ export const userController = {
       role,
     };
 
+    console.log(registrationData);
     try {
-      const id = await userService.registerUser(registrationData);
-      console.log(id);
+      await userService.registerUser(registrationData);
       res.status(201).send();
     } catch (err) {
       next(err);

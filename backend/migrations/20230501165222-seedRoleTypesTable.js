@@ -16,7 +16,7 @@ exports.setup = function (options, seedLink) {
 
 exports.up = function (db) {
   db.insert("roleTypes", ["id", "name"], [1, "Admin"]);
-  db.insert("roleTypes", ["id", "name"], [2, "Book keeper"]);
+  db.insert("roleTypes", ["id", "name"], [2, "Book-keeper"]);
   return db.insert("roleTypes", ["id", "name"], [3, "User"]);
 };
 
