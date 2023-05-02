@@ -70,4 +70,9 @@ export class AuthService {
         catchError(() => of(null))
       );
   }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

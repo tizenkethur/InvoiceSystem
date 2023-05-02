@@ -7,15 +7,21 @@
   height: 80px;
   background-color: rgb(121, 85, 72);
   color: white;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 10px;
   align-items: center;
 
-  .title {
-    margin-bottom: 0;
-    margin-left: 53px;
-    font-size: 27px;
-    font-weight: bolder;
+  #data-holder {
+    display: flex;
+
+    .data-box {
+      margin: 10px;
+
+      .data {
+        margin-bottom: 0;
+        font-size: 24px;
+      }
+    }
   }
 
   button {

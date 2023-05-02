@@ -1,10 +1,19 @@
 <div class="header">
-  <!-- <p class="title">{{ usernameObservable$ | async }}</p> -->
+  <div id="data-holder">
+    <div class='data-box'>
+      <p>Username:</p>
+      <p class="data">{{ usernameObservable$ | async }}</p>
+    </div>
+    <div class='data-box'>
+      <p>Last login:</p>
+      <p class="data">{{ usernameObservable$ | async }}</p>
+    </div>
+  </div>
   <div class="settings">
-    <button mat-fab color="accent" routerLink="/main">
+    <button mat-fab color="accent" routerLink="/main" #homeButton>
       <mat-icon>home</mat-icon>
     </button>
-    <button mat-fab color="accent">
+    <button mat-fab color="accent" (click)="logout()">
       <mat-icon>logout</mat-icon>
     </button>
   </div>
