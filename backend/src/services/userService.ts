@@ -7,6 +7,9 @@ import { UserLoginRequestViewModel } from "../models/common/UserLoginRequestView
 import { jwtService } from "./JwtServices";
 import { roleRepository } from "../repositories/roleRepository";
 import { UserLoginViewModel } from "../models/view/UserLoginViewModel";
+import { lastLoginDateRepository } from "../repositories/lastLoginDateRepository";
+import { generateDateTimeToMysql } from "./dateService";
+import { LastLoginDateDomainModel } from "models/domain/LastLoginDateDomainModel";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -48,17 +51,33 @@ export const userService = {
     const getRoleTypeIdByUserId = await roleRepository.getRoleTypeIdByUserId(
       getUserByName.id
     );
-
     const token: string = await jwtService.generateAccessToken(
       getUserByName.id,
       getUserByName.username,
       getRoleTypeIdByUserId
     );
 
+    const dateNow = generateDateTimeToMysql(new Date());
+
+    const lastLoginDate =
+      await lastLoginDateRepository.getLastLoginDateByUserId(getUserByName.id);
+
+    if (!lastLoginDate) {
+      await lastLoginDateRepository.setLastLoginDateByUserId(
+        getUserByName.id,
+        dateNow
+      );
+    } else {
+      await lastLoginDateRepository.updateLastLoginDateByUserId(
+        getUserByName.id,
+        dateNow
+      );
+    }
     return {
       token,
       username: getUserByName.username,
       roleTypeId: getRoleTypeIdByUserId,
+      // dateNow,
     };
   },
 };
