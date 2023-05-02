@@ -69,8 +69,8 @@ export const userService = {
       );
     } else {
       await lastLoginDateRepository.updateLastLoginDateByUserId(
-        getUserByName.id,
-        dateNow
+        dateNow,
+        getUserByName.id
       );
     }
     return {

@@ -24,11 +24,11 @@ export const lastLoginDateRepository = {
   },
 
   async updateLastLoginDateByUserId(
-    userId: number,
-    dateNow: string
+    dateNow: string,
+    userId: number
   ): Promise<void> {
-    const query: string = `UPDATE lastLoginDates SET userId = ?, lastLoginDate = ?`;
+    const query: string = `UPDATE lastLoginDates SET lastLoginDate = ? WHERE userId = ?`;
 
-    await db.query<OkPacket>(query, [userId.toString(), dateNow]);
+    await db.query<OkPacket>(query, [dateNow, userId.toString()]);
   },
 };

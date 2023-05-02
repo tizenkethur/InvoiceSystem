@@ -38,7 +38,6 @@ export class AuthService {
   }
 
   getRoleTypeId(): string {
-    console.log(localStorage.getItem('roleTypeId') as string);
     return localStorage.getItem('roleTypeId') as string;
   }
 
