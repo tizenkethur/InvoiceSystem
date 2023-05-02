@@ -6,9 +6,15 @@ import { AuthService } from 'src/app/core/services/AuthService/auth-service.serv
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   usernameObservable$ = this.authService.usernameObservable$;
+  roleTypeIdObservable$ = this.authService.roleTypeIdObservable$;
+
   constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    console.log(this.usernameObservable$);
+  }
 
   logout(): void {
     this.authService.logout();

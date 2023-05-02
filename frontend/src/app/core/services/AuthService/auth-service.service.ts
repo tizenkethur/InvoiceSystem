@@ -12,7 +12,10 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AuthService {
   private usernameSubject = new BehaviorSubject<string>(this.getUsername());
+  private roleTypeIdSubject = new BehaviorSubject<string>(this.getRoleTypeId());
+
   usernameObservable$ = this.usernameSubject.asObservable();
+  roleTypeIdObservable$ = this.roleTypeIdSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -33,6 +36,7 @@ export class AuthService {
   }
 
   getRoleTypeId(): string {
+    console.log(localStorage.getItem('roleTypeId') as string);
     return localStorage.getItem('roleTypeId') as string;
   }
 
@@ -44,6 +48,10 @@ export class AuthService {
     return this.http.get<boolean>(
       `${environment.apiUrl}/user/checkUsername/${username}`
     );
+  }
+
+  clearLocalStorage(): void {
+    localStorage.clear();
   }
 
   register(userdata: UserRegistrationRequestViewModel): Observable<void> {
@@ -62,9 +70,9 @@ export class AuthService {
       .post<UserLoginViewModel>(`${environment.apiUrl}/user/login`, loginData)
       .pipe(
         tap((response) => {
-          this.setToken(response.token),
-            this.setUsername(response.username),
-            this.setRoleTypeId(response.roleTypeId);
+          this.setToken(response.token);
+          this.setUsername(response.username);
+          this.setRoleTypeId(response.roleTypeId);
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))
@@ -72,7 +80,7 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.clear();
+    this.clearLocalStorage();
     this.router.navigate(['/login']);
   }
 }
