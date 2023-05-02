@@ -8,9 +8,10 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler/error-handler.interceptor';
+import { AdminPageComponent } from './features/admin-page/admin-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AdminPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
