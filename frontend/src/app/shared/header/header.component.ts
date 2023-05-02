@@ -9,7 +9,8 @@ import { AuthService } from 'src/app/core/services/AuthService/auth-service.serv
 export class HeaderComponent {
   usernameObservable$ = this.authService.usernameObservable$;
   roleTypeIdObservable$ = this.authService.roleTypeIdObservable$;
-
+  lastLoginDateObservable$ = this.authService.lastLoginDateObservable$;
+  
   constructor(private authService: AuthService) {}
 
   logout(): void {

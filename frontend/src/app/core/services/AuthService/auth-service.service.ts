@@ -14,9 +14,13 @@ import { environment } from 'src/environments/environment.development';
 export class AuthService {
   private usernameSubject = new BehaviorSubject<string>(this.getUsername());
   private roleTypeIdSubject = new BehaviorSubject<string>(this.getRoleTypeId());
+  private lastLoginDateSubject = new BehaviorSubject<string>(
+    this.getLastLoginDate()
+  );
 
   usernameObservable$ = this.usernameSubject.asObservable();
   roleTypeIdObservable$ = this.roleTypeIdSubject.asObservable();
+  lastLoginDateObservable$ = this.lastLoginDateSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -44,6 +48,15 @@ export class AuthService {
   setRoleTypeId(roleTypeId: number): void {
     this.roleTypeIdSubject.next(RoleType[roleTypeId]);
     localStorage.setItem('roleTypeId', roleTypeId.toString());
+  }
+
+  getLastLoginDate(): string {
+    return localStorage.getItem('lastLoginDate') as string;
+  }
+
+  setLastLoginDate(lastLoginDate: string): void {
+    this.lastLoginDateSubject.next(lastLoginDate);
+    localStorage.setItem('lastLoginDate', lastLoginDate);
   }
 
   checkIfUsernameExists(username: string): Observable<boolean> {
@@ -75,6 +88,7 @@ export class AuthService {
           this.setToken(response.token);
           this.setUsername(response.username);
           this.setRoleTypeId(response.roleTypeId);
+          this.setLastLoginDate(response.lastLoginDate.toString());
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))

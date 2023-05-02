@@ -73,11 +73,15 @@ export const userService = {
         getUserByName.id
       );
     }
+
+    const lastLoginDateToDisplay: LastLoginDateDomainModel =
+      await lastLoginDateRepository.getLastLoginDateByUserId(getUserByName.id);
+
     return {
       token,
       username: getUserByName.username,
       roleTypeId: getRoleTypeIdByUserId,
-      // dateNow,
+      lastLoginDate: lastLoginDateToDisplay.lastLoginDate,
     };
   },
 };

@@ -3,7 +3,7 @@ import { badRequestError } from "../services/generalErrorService";
 import { userService } from "../services/userService";
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
 import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
-import { UserLoginViewModel } from 'models/view/UserLoginViewModel';
+import { UserLoginViewModel } from "models/view/UserLoginViewModel";
 
 export const userController = {
   async checkIfUsernameExists(req: Request, res: Response, next: NextFunction) {
