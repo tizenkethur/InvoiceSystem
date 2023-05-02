@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { environment } from 'src/environments/environment.development';
@@ -32,6 +33,7 @@ export class AuthService {
   }
 
   setUsername(username: string): void {
+    this.usernameSubject.next(username);
     localStorage.setItem('username', username);
   }
 
@@ -41,6 +43,7 @@ export class AuthService {
   }
 
   setRoleTypeId(roleTypeId: number): void {
+    this.roleTypeIdSubject.next(RoleType[roleTypeId]);
     localStorage.setItem('roleTypeId', roleTypeId.toString());
   }
 
