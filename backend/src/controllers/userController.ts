@@ -3,6 +3,7 @@ import { badRequestError } from "../services/generalErrorService";
 import { userService } from "../services/userService";
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
 import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
+import { UserLoginViewModel } from 'models/view/UserLoginViewModel';
 
 export const userController = {
   async checkIfUsernameExists(req: Request, res: Response, next: NextFunction) {
@@ -67,7 +68,7 @@ export const userController = {
 
   async login(
     request: Request<UserLoginRequestViewModel>,
-    response: Response<void>,
+    response: Response<UserLoginViewModel>,
     next: NextFunction
   ) {
     const { username, password } = request.body;
@@ -93,8 +94,8 @@ export const userController = {
     };
 
     try {
-      await userService.login(loginData);
-      response.status(200).send();
+      const userData = await userService.login(loginData);
+      response.status(200).send(userData);
     } catch (error) {
       next(error);
     }

@@ -13,4 +13,5 @@ export default {
     host: "http://localhost",
     port: 3000,
   },
+  jwt: { secretKey: process.env["JWT_SECRET"] },
 };

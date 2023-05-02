@@ -1,6 +1,7 @@
 import { RoleTypeDomainModel } from "models/domain/RoleTypeDomainModel";
 import { db } from "../data/connection";
 import { OkPacket } from "mysql";
+import { RoleDomainModel } from "models/domain/RoleDomainModel";
 
 export const roleRepository = {
   async getRoleTypeIdByRoleName(roleName: string): Promise<number> {
@@ -18,5 +19,14 @@ export const roleRepository = {
     ]);
 
     return regResult.insertId;
+  },
+
+  async getRoleTypeIdByUserId(userId: number): Promise<number> {
+    const query: string = `SELECT * from ROLES WHERE userId=?`;
+    const roleData = await db.query<RoleDomainModel[]>(query, [
+      userId.toString(),
+    ]);
+
+    return roleData[0].roleTypeId;
   },
 };

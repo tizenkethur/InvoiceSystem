@@ -1,7 +1,8 @@
+import { UserLoginViewModel } from '../../../shared/models/view/UserLoginViewModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { environment } from 'src/environments/environment.development';
@@ -10,7 +11,26 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class AuthService {
+  private usernameSubject = new BehaviorSubject<string>(this.getUsername());
+  usernameObservable$ = this.usernameSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {}
+
+  getUsername(): string {
+    return localStorage.getItem('username') as string;
+  }
+
+  setUsername(username: string): void {
+    localStorage.setItem('username', username);
+  }
+
+  getRoleTypeId(): string {
+    return localStorage.getItem('roleTypeId') as string;
+  }
+
+  setRoleTypeId(roleTypeId: number): void {
+    localStorage.setItem('roleTypeId', roleTypeId.toString());
+  }
 
   checkIfUsernameExists(username: string): Observable<boolean> {
     return this.http.get<boolean>(
@@ -29,11 +49,13 @@ export class AuthService {
       );
   }
 
-  login(loginData: UserLoginRequestViewModel): Observable<void> {
+  login(loginData: UserLoginRequestViewModel): Observable<UserLoginViewModel> {
     return this.http
-      .post<void>(`${environment.apiUrl}/user/login`, loginData)
+      .post<UserLoginViewModel>(`${environment.apiUrl}/user/login`, loginData)
       .pipe(
-        tap(() => {
+        tap((response) => {
+          this.setUsername(response.username),
+            this.setRoleTypeId(response.roleTypeId);
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))

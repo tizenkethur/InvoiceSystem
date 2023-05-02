@@ -4,6 +4,9 @@ import { conflictError, unauthorizedError } from "./generalErrorService";
 import { passwordService } from "./passwordService";
 import { roleService } from "./roleService";
 import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
+import { jwtService } from "./JwtServices";
+import { roleRepository } from "repositories/roleRepository";
+import { UserLoginViewModel } from "models/view/UserLoginViewModel";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -27,7 +30,9 @@ export const userService = {
     await roleService.registerRole(newUserId, userData.role);
   },
 
-  async login(userData: UserLoginRequestViewModel): Promise<void> {
+  async login(
+    userData: UserLoginRequestViewModel
+  ): Promise<UserLoginViewModel> {
     const getUserByName = await userRepository.getUserByName(userData.username);
 
     if (
@@ -40,6 +45,20 @@ export const userService = {
       throw unauthorizedError("Username or password is incorrect!");
     }
 
-    return;
+    const getRoleTypeIdByUserId = await roleRepository.getRoleTypeIdByUserId(
+      getUserByName.id
+    );
+
+    const token: string = await jwtService.generateAccessToken(
+      getUserByName.id,
+      getUserByName.username,
+      getRoleTypeIdByUserId
+    );
+
+    return {
+      token,
+      username: getUserByName.username,
+      roleTypeId: getRoleTypeIdByUserId,
+    };
   },
 };
