@@ -16,6 +16,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  getToken(): string {
+    return localStorage.getItem('token') as string;
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
   getUsername(): string {
     return localStorage.getItem('username') as string;
   }
@@ -54,7 +62,8 @@ export class AuthService {
       .post<UserLoginViewModel>(`${environment.apiUrl}/user/login`, loginData)
       .pipe(
         tap((response) => {
-          this.setUsername(response.username),
+          this.setToken(response.token),
+            this.setUsername(response.username),
             this.setRoleTypeId(response.roleTypeId);
           this.router.navigate(['/main']);
         }),

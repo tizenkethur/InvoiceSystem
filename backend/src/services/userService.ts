@@ -3,10 +3,10 @@ import { userRepository } from "../repositories/userRepository";
 import { conflictError, unauthorizedError } from "./generalErrorService";
 import { passwordService } from "./passwordService";
 import { roleService } from "./roleService";
-import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
+import { UserLoginRequestViewModel } from "../models/common/UserLoginRequestViewModel";
 import { jwtService } from "./JwtServices";
-import { roleRepository } from "repositories/roleRepository";
-import { UserLoginViewModel } from "models/view/UserLoginViewModel";
+import { roleRepository } from "../repositories/roleRepository";
+import { UserLoginViewModel } from "../models/view/UserLoginViewModel";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {

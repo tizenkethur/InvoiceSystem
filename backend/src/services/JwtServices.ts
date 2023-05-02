@@ -1,7 +1,7 @@
 import config from "../config";
 import * as jwt from "jsonwebtoken";
 import { Request } from "express";
-import { JwtTokenPayloadModel } from "models/common/JwtTokePayloadModel";
+import { JwtTokenPayloadModel } from "models/common/JwtTokenPayloadModel";
 
 export const jwtService = {
   generateAccessToken(
