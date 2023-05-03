@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/AuthService/auth-service.service';
+import { AuthService } from '../../services/AuthService/auth-service.service';
+import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard {
+export class AdminGuard {
   constructor(private authService: AuthService, private router: Router) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,6 +24,8 @@ export class AuthGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.getToken() ? true : this.router.navigate(['login']);
+    return this.authService.getRoleTypeId() === RoleType['Admin'].toString()
+      ? true
+      : this.router.navigate(['main']);
   }
 }

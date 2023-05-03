@@ -8,7 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler/error-handler.interceptor';
 import { TokenInterceptor } from './core/interceptors/token/token.interceptor';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/guards/auth/auth.guard';
+import { UserGuard } from './core/guards/role/user.guard';
+import { AdminGuard } from './core/guards/role/admin.guard';
+import { BookKeeperGuard } from './core/guards/role/book-keeper.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +34,9 @@ import { AuthGuard } from './core/guards/auth.guard';
       multi: true,
     },
     AuthGuard,
+    UserGuard,
+    AdminGuard,
+    BookKeeperGuard,
   ],
   bootstrap: [AppComponent],
 })

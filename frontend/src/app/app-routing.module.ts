@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/guards/auth/auth.guard';
+import { AdminGuard } from './core/guards/role/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -26,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'admin-page',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () =>
       import('../app/features/admin-page/admin-page.module').then(
         (m) => m.AdminPageModule
