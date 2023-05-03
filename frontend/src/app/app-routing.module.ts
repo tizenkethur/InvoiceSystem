@@ -33,6 +33,14 @@ const routes: Routes = [
         (m) => m.AdminPageModule
       ),
   },
+  {
+    path: 'create-invoice',
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () =>
+      import(
+        '../app/features/invoices/create-invoice-page/create-invoice-page.module'
+      ).then((m) => m.CreateInvoicePageModule),
+  },
 ];
 
 @NgModule({

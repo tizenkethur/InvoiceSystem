@@ -12,7 +12,9 @@
         <button mat-fab extended routerLink="/">Invoice details</button>
       </div>
       <div *ngIf="currentRoleTypeId < 3" id="limited-access-buttons">
-        <button mat-fab extended routerLink="/">Create an invoice</button>
+        <button mat-fab extended routerLink="/create-invoice">
+          Create an invoice
+        </button>
         <button
           mat-fab
           extended
