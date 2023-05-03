@@ -1,1 +1,61 @@
-<p>create-invoice-page works!</p>
+<div class="main-container">
+  <div class="form-holder" id="invoice-form-holder">
+    <div class="button-holder">
+      <button mat-fab color="primary" routerLink="/login">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+
+    <form [formGroup]="form">
+      <h2>Create an invoice</h2>
+      <div id="create-invoice-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="name.hasError('required')"
+            >Username is required.</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date of issue</mat-label>
+          <input matInput formControlName="dateOfIssue" />
+          <mat-error *ngIf="dateOfIssue.hasError('required')"
+            >Please give the date of the issue!</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Due date</mat-label>
+          <input matInput formControlName="dueDate" />
+          <mat-error *ngIf="dueDate.hasError('required')"
+            >Please provide the last date to complete the invoice!</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Item</mat-label>
+          <input matInput formControlName="item" />
+          <mat-error *ngIf="item.hasError('required')"
+            >Please provide the name of the item or service!</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+          <mat-error *ngIf="description.hasError('required')"
+            >Please provide a description!</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput formControlName="price" />
+          <mat-error *ngIf="price.hasError('required')"
+            >Please provide the price!</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" [disabled]="form.invalid">
+        Create
+      </button>
+    </form>
+  </div>
+</div>

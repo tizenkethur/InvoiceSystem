@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/AuthService/auth-service.service';
+import { SnackBarService } from 'src/app/core/services/snackBarService/snack-bar.service';
 
 @Component({
   selector: 'app-registration',
@@ -22,7 +23,10 @@ export class RegistrationComponent {
     role: new FormControl('', Validators.required),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private snackBarService: SnackBarService
+  ) {}
 
   get username(): AbstractControl {
     return this.form.get('username');
@@ -41,7 +45,10 @@ export class RegistrationComponent {
       .checkIfUsernameExists(this.username.value)
       .subscribe((v) => {
         if (v) {
-          alert('This username is already exists.');
+          this.snackBarService.showErrorMessage(
+            'This username is already exists.',
+            true
+          );
         }
       });
   }
