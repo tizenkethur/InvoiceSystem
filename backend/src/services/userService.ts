@@ -8,7 +8,10 @@ import { jwtService } from "./JwtServices";
 import { roleRepository } from "../repositories/roleRepository";
 import { UserLoginViewModel } from "../models/view/UserLoginViewModel";
 import { lastLoginDateRepository } from "../repositories/lastLoginDateRepository";
-import { generateDateTimeToMysql } from "./dateService";
+import {
+  generateDateTimeToMysql,
+  getDateTimeBackFromMysql,
+} from "./dateService";
 import { LastLoginDateDomainModel } from "models/domain/LastLoginDateDomainModel";
 
 export const userService = {
@@ -63,25 +66,28 @@ export const userService = {
       await lastLoginDateRepository.getLastLoginDateByUserId(getUserByName.id);
 
     if (!lastLoginDate) {
-      await lastLoginDateRepository.setLastLoginDateByUserId(
+      await lastLoginDateRepository.setLoginDateByUserId(
         getUserByName.id,
         dateNow
       );
     } else {
-      await lastLoginDateRepository.updateLastLoginDateByUserId(
+      await lastLoginDateRepository.updateLoginDateByUserId(
+        getDateTimeBackFromMysql(lastLoginDate.currentLoginDate),
         dateNow,
         getUserByName.id
       );
     }
 
-    const lastLoginDateToDisplay: LastLoginDateDomainModel =
+    const lastLoginDateToDisplay =
       await lastLoginDateRepository.getLastLoginDateByUserId(getUserByName.id);
 
     return {
       token,
       username: getUserByName.username,
       roleTypeId: getRoleTypeIdByUserId,
-      lastLoginDate: lastLoginDateToDisplay.lastLoginDate,
+      lastLoginDate: getDateTimeBackFromMysql(
+        lastLoginDateToDisplay.lastLoginDate
+      ),
     };
   },
 };

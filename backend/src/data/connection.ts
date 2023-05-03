@@ -6,6 +6,7 @@ const databaseConnection = mysql.createConnection({
   user: config.mysql.user,
   password: config.mysql.password,
   database: config.mysql.database,
+  timezone: "Z",
 });
 
 export const db = {

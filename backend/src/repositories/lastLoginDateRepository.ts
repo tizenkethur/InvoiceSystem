@@ -15,20 +15,23 @@ export const lastLoginDateRepository = {
     return loginDateData[0];
   },
 
-  async setLastLoginDateByUserId(
-    userId: number,
-    dateNow: string
-  ): Promise<void> {
-    const query: string = `INSERT INTO lastLoginDates (userId, lastLoginDate) VALUES (?,?)`;
-    await db.query<OkPacket>(query, [userId.toString(), dateNow]);
+  async setLoginDateByUserId(userId: number, dateNow: string): Promise<void> {
+    console.log(typeof dateNow)
+    const query: string = `INSERT INTO lastLoginDates (userId, lastLoginDate, currentLoginDate) VALUES (?,?,?)`;
+    await db.query<OkPacket>(query, [userId.toString(), dateNow, dateNow]);
   },
 
-  async updateLastLoginDateByUserId(
-    dateNow: string,
+  async updateLoginDateByUserId(
+    lastLoginDate: string,
+    currentLoginDate: string,
     userId: number
   ): Promise<void> {
-    const query: string = `UPDATE lastLoginDates SET lastLoginDate = ? WHERE userId = ?`;
+    const query: string = `UPDATE lastLoginDates SET lastLoginDate = ?, currentLoginDate = ? WHERE userId = ?`;
 
-    await db.query<OkPacket>(query, [dateNow, userId.toString()]);
+    await db.query<OkPacket>(query, [
+      lastLoginDate,
+      currentLoginDate,
+      userId.toString(),
+    ]);
   },
 };

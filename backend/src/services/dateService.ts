@@ -4,3 +4,7 @@ export function generateDateTimeToMysql(date: Date): string {
   );
   return offsetCorrectedDate.toISOString().slice(0, 19).replace("T", " ");
 }
+
+export function getDateTimeBackFromMysql(date: Date): string {
+  return new Date(date).toISOString().slice(0, 19).replace("T", " ");
+}
