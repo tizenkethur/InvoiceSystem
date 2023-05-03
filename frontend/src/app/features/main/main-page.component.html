@@ -6,18 +6,22 @@
       <h1>Welcome!</h1>
       <h2>Start working on your bills easily!</h2>
     </div>
-    <div id="nav-button-holder" [ngSwitch]="currentRoleTypeId">
-      <button mat-fab extended routerLink="/admin-page" *ngSwitchCase="1">
-        Admin page
-      </button>
-      <button mat-fab extended routerLink="/">List of your invoices</button>
-      <button mat-fab extended routerLink="/">Invoice details</button>
-      <button mat-fab extended routerLink="/" *ngSwitchCase="2">
-        Create an invoice
-      </button>
-      <button mat-fab extended routerLink="/" *ngSwitchCase="1">
-        Create an invoice
-      </button>
+    <div id="nav-button-holder">
+      <div id="accessible-buttons">
+        <button mat-fab extended routerLink="/">List of your invoices</button>
+        <button mat-fab extended routerLink="/">Invoice details</button>
+      </div>
+      <div *ngIf="currentRoleTypeId < 3" id="limited-access-buttons">
+        <button mat-fab extended routerLink="/">Create an invoice</button>
+        <button
+          mat-fab
+          extended
+          routerLink="/admin-page"
+          *ngIf="currentRoleTypeId === 1"
+        >
+          Admin page
+        </button>
+      </div>
     </div>
   </div>
 </div>

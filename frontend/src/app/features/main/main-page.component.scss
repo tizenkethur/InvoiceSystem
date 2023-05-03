@@ -7,7 +7,9 @@
   }
 }
 
-#nav-button-holder {
+#nav-button-holder,
+#accessible-buttons,
+#limited-access-buttons {
   display: flex;
   flex-direction: column;
 
