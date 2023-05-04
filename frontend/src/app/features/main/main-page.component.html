@@ -1,5 +1,3 @@
-<app-header></app-header>
-
 <div class="main-container">
   <div class="greeting-holder">
     <div id="greeting">
@@ -8,7 +6,9 @@
     </div>
     <div id="nav-button-holder">
       <div id="accessible-buttons">
-        <button mat-fab extended routerLink="/">List of your invoices</button>
+        <button mat-fab extended routerLink="/invoice-list">
+          List of your invoices
+        </button>
         <button mat-fab extended routerLink="/">Invoice details</button>
       </div>
       <div *ngIf="currentRole !== 'User'" id="limited-access-buttons">

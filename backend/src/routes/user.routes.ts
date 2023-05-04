@@ -11,6 +11,4 @@ userRouter.get(
 userRouter.post("/register", userController.register);
 
 userRouter.post("/login", userController.login);
-
-userRouter.get("/roleTypeId", userController.getRoleTypeId);
 export default userRouter;

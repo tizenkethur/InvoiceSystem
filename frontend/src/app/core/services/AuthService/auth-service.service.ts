@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   Observable,
-  Subject,
   catchError,
   of,
   tap,
@@ -13,6 +12,7 @@ import {
 import { environment } from 'src/environments/environment.development';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
+import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 
 @Injectable({
   providedIn: 'root',
@@ -22,9 +22,9 @@ export class AuthService {
   private lastLoginDateSubject = new BehaviorSubject<string>(
     this.getLastLoginDate()
   );
-  private roleTypeId = new Subject<number>();
+  private roleSubject = new BehaviorSubject<string>('');
 
-  roleTypeId$ = this.roleTypeId.asObservable();
+  roleObservable$ = this.roleSubject.asObservable();
   usernameObservable$ = this.usernameSubject.asObservable();
   lastLoginDateObservable$ = this.lastLoginDateSubject.asObservable();
 
@@ -85,6 +85,8 @@ export class AuthService {
           this.setToken(response.token);
           this.setUsername(response.username);
           this.setLastLoginDate(response.lastLoginDate.toString());
+          this.roleSubject.next(RoleType[response.roleTypeId]);
+          console.log(RoleType[response.roleTypeId]);
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))
@@ -94,14 +96,5 @@ export class AuthService {
   logout(): void {
     this.clearLocalStorage();
     this.router.navigate(['/login']);
-  }
-
-  getRoleTypeId(): void {
-    this.http
-      .get<number>(`${environment.apiUrl}/user/roleTypeId`)
-      .subscribe((x) => {
-        console.log(this.getRoleTypeId);
-        this.roleTypeId.next(x);
-      });
   }
 }

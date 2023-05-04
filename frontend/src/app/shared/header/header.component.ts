@@ -8,21 +8,14 @@ import { RoleType } from '../models/enums/RoleTypeEnum';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   usernameObservable$ = this.authService.usernameObservable$;
   lastLoginDateObservable$ = this.authService.lastLoginDateObservable$;
+  roleTypeIdObservable$ = this.authService.roleObservable$;
 
-  roleTypeIdSubscription: Subscription;
-  currentRole: string;
   constructor(private authService: AuthService) {}
 
   logout(): void {
     this.authService.logout();
-  }
-
-  ngOnInit() {
-    this.roleTypeIdSubscription = this.authService.roleTypeId$.subscribe(
-      (x) => (this.currentRole = RoleType[x])
-    );
   }
 }

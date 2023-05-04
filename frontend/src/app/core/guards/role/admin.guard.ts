@@ -14,18 +14,18 @@ import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
   providedIn: 'root',
 })
 export class AdminGuard {
-  // constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ):
-  //   | Observable<boolean | UrlTree>
-  //   | Promise<boolean | UrlTree>
-  //   | boolean
-  //   | UrlTree {
-  //   return this.authService.roleTypeId$ === RoleType.Admin
-  //     ? true
-  //     : this.router.navigate(['main']);
-  // }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.authService.roleObservable$.toString() === RoleType[1]
+      ? true
+      : this.router.navigate(['main']);
+  }
 }

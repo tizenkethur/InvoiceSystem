@@ -12,7 +12,6 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { UserGuard } from './core/guards/role/user.guard';
 import { AdminGuard } from './core/guards/role/admin.guard';
 import { BookKeeperGuard } from './core/guards/role/book-keeper.guard';
-import { RoleTypeIdInterceptor } from './core/interceptors/roleTypeId/role-type-id.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,11 +31,6 @@ import { RoleTypeIdInterceptor } from './core/interceptors/roleTypeId/role-type-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RoleTypeIdInterceptor,
       multi: true,
     },
     AuthGuard,

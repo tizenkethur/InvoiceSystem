@@ -41,6 +41,14 @@ const routes: Routes = [
         '../app/features/invoices/create-invoice-page/create-invoice-page.module'
       ).then((m) => m.CreateInvoicePageModule),
   },
+  {
+    path: 'invoice-list',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import(
+        '../app/features/invoices/invoice-list-page/invoice-list-page.module'
+      ).then((m) => m.InvoiceListPageModule),
+  },
 ];
 
 @NgModule({
