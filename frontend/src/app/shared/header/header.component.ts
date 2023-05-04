@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/services/AuthService/auth-service.service';
-import { RoleType } from '../models/enums/RoleTypeEnum';
+import { AuthService } from 'src/app/core/services/authService/auth-service.service';
 
 @Component({
   selector: 'app-header',

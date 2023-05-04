@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+// import { InvoiceService } from 'src/app/core/services/invoiceService/invoice.service';
 
 @Component({
   selector: 'app-create-invoice-page',
@@ -20,6 +21,8 @@ export class CreateInvoicePageComponent {
     description: new FormControl('', Validators.required),
     price: new FormControl('', Validators.required),
   });
+
+  // constructor(private invoiceService: InvoiceService) {}
 
   get name(): AbstractControl {
     return this.form.get('name');
@@ -44,4 +47,10 @@ export class CreateInvoicePageComponent {
   get price(): AbstractControl {
     return this.form.get('price');
   }
+
+  // createInvoice(): void {
+  //   if (this.form.valid) {
+  //     this.invoiceService.createInvoice(this.form.getRawValue()).subscribe();
+  //   }
+  // }
 }

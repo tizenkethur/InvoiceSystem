@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { AuthService } from './../../core/services/AuthService/auth-service.service';
+import { AuthService } from '../../core/services/authService/auth-service.service';
 import { Component, OnInit } from '@angular/core';
 import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 

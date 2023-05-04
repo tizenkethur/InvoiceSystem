@@ -8,7 +8,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
-import { AuthService } from '../../services/AuthService/auth-service.service';
+import { AuthService } from '../../services/authService/auth-service.service';
 import { SnackBarService } from '../../services/snackBarService/snack-bar.service';
 
 @Injectable()

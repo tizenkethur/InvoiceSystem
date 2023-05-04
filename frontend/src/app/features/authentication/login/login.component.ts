@@ -1,4 +1,4 @@
-import { AuthService } from 'src/app/core/services/AuthService/auth-service.service';
+import { AuthService } from 'src/app/core/services/authService/auth-service.service';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
