@@ -11,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HeaderComponent } from './header/header.component';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [HeaderComponent],
   imports: [
@@ -26,6 +27,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatSnackBarModule,
     MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     CommonModule,
@@ -40,6 +43,8 @@ import { MatTableModule } from '@angular/material/table';
     MatSnackBarModule,
     HeaderComponent,
     MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
 })
 export class SharedModule {}

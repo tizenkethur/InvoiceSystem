@@ -1,11 +1,12 @@
 #invoice-form-holder {
   //   height: 100%;
-  width: 800px;
+  width: 700px;
   margin: 50px;
   padding: 50px;
   #create-invoice-form {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     margin-bottom: 20px;
 
     mat-form-field {
