@@ -23,7 +23,7 @@ export class UserGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.getRoleTypeId() === RoleType['User'].toString()
+    return this.authService.roleObservable$.toString() === RoleType[3]
       ? true
       : this.router.navigate(['main']);
   }

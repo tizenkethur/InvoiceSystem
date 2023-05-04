@@ -22,8 +22,7 @@ export class BookKeeperGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.getRoleTypeId() ===
-      RoleType['Book keeper'].toString()
+    return this.authService.roleObservable$.toString() === RoleType[2]
       ? true
       : this.router.navigate(['main']);
   }

@@ -24,7 +24,7 @@ export class AdminGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.getRoleTypeId() === RoleType['Admin'].toString()
+    return this.authService.roleObservable$.toString() === RoleType[1]
       ? true
       : this.router.navigate(['main']);
   }

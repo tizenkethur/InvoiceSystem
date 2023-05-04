@@ -7,14 +7,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
-  roleTypeIdObservable$ = this.authService.roleTypeIdObservable$;
-  currentRoleTypeId: number;
-
-  ngOnInit() {
-    this.roleTypeIdObservable$.subscribe((response) => {
-      this.currentRoleTypeId = parseInt(response);
-    });
-  }
+export class MainPageComponent {
   constructor(private authService: AuthService) {}
 }

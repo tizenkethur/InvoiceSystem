@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/AuthService/auth-service.service';
+import { RoleType } from '../models/enums/RoleTypeEnum';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,9 @@ import { AuthService } from 'src/app/core/services/AuthService/auth-service.serv
 })
 export class HeaderComponent {
   usernameObservable$ = this.authService.usernameObservable$;
-  roleTypeIdObservable$ = this.authService.roleTypeIdObservable$;
   lastLoginDateObservable$ = this.authService.lastLoginDateObservable$;
-  
+  roleObservable$ = this.authService.roleObservable$;
+
   constructor(private authService: AuthService) {}
 
   logout(): void {
