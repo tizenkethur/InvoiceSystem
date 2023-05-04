@@ -1,13 +1,18 @@
-import { jwtService } from './../../../../../../backend/src/services/JwtServices';
 import { UserLoginViewModel } from '../../../shared/models/view/UserLoginViewModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  catchError,
+  of,
+  tap,
+} from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
-import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +22,11 @@ export class AuthService {
   private lastLoginDateSubject = new BehaviorSubject<string>(
     this.getLastLoginDate()
   );
-  private roleSubject = new BehaviorSubject<string>('');
-  
+  private roleTypeId = new Subject<number>();
+
+  roleTypeId$ = this.roleTypeId.asObservable();
   usernameObservable$ = this.usernameSubject.asObservable();
   lastLoginDateObservable$ = this.lastLoginDateSubject.asObservable();
-  roleObservable$ = this.roleSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -80,7 +85,6 @@ export class AuthService {
           this.setToken(response.token);
           this.setUsername(response.username);
           this.setLastLoginDate(response.lastLoginDate.toString());
-          this.roleSubject.next( RoleType[response.roleTypeId]);
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))
@@ -90,5 +94,14 @@ export class AuthService {
   logout(): void {
     this.clearLocalStorage();
     this.router.navigate(['/login']);
+  }
+
+  getRoleTypeId(): void {
+    this.http
+      .get<number>(`${environment.apiUrl}/user/roleTypeId`)
+      .subscribe((x) => {
+        console.log(this.getRoleTypeId);
+        this.roleTypeId.next(x);
+      });
   }
 }

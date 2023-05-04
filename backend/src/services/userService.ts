@@ -1,4 +1,4 @@
-import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
+import { UserRegistrationRequestModel } from "../models/common/UserRegistrationRequestModel";
 import { userRepository } from "../repositories/userRepository";
 import { conflictError, unauthorizedError } from "./generalErrorService";
 import { passwordService } from "./passwordService";
@@ -12,7 +12,6 @@ import {
   generateDateTimeToMysql,
   getDateTimeBackFromMysql,
 } from "./dateService";
-import { LastLoginDateDomainModel } from "models/domain/LastLoginDateDomainModel";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {

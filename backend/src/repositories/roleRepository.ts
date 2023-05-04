@@ -1,7 +1,7 @@
-import { RoleTypeDomainModel } from "models/domain/RoleTypeDomainModel";
+import { RoleTypeDomainModel } from "../models/domain/RoleTypeDomainModel";
 import { db } from "../data/connection";
 import { OkPacket } from "mysql";
-import { RoleDomainModel } from "models/domain/RoleDomainModel";
+import { RoleDomainModel } from "../models/domain/RoleDomainModel";
 
 export const roleRepository = {
   async getRoleTypeIdByRoleName(roleName: string): Promise<number> {

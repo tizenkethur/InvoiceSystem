@@ -4,6 +4,7 @@ import { userService } from "../services/userService";
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
 import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
 import { UserLoginViewModel } from "models/view/UserLoginViewModel";
+import { jwtService } from "../services/JwtServices";
 
 export const userController = {
   async checkIfUsernameExists(req: Request, res: Response, next: NextFunction) {
@@ -96,6 +97,19 @@ export const userController = {
     try {
       const userData = await userService.login(loginData);
       response.status(200).send(userData);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async getRoleTypeId(req: Request, res: Response, next: NextFunction) {
+    const token = jwtService.getTokenFromRequest(req);
+    console.log(token);
+    const { roleTypeId } = jwtService.getTokenPayload(token);
+    console.log(roleTypeId);
+    try {
+      console.log(roleTypeId);
+      res.status(200).send(roleTypeId);
     } catch (error) {
       next(error);
     }

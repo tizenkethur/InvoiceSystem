@@ -1,4 +1,4 @@
-import { LastLoginDateDomainModel } from "models/domain/LastLoginDateDomainModel";
+import { LastLoginDateDomainModel } from "../models/domain/LastLoginDateDomainModel";
 import { db } from "../data/connection";
 import { OkPacket } from "mysql";
 
@@ -16,7 +16,7 @@ export const lastLoginDateRepository = {
   },
 
   async setLoginDateByUserId(userId: number, dateNow: string): Promise<void> {
-    console.log(typeof dateNow)
+    console.log(typeof dateNow);
     const query: string = `INSERT INTO lastLoginDates (userId, lastLoginDate, currentLoginDate) VALUES (?,?,?)`;
     await db.query<OkPacket>(query, [userId.toString(), dateNow, dateNow]);
   },

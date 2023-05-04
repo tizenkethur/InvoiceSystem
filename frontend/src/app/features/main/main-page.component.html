@@ -7,11 +7,11 @@
       <h2>Start working on your bills easily!</h2>
     </div>
     <div id="nav-button-holder">
-      <!-- <div id="accessible-buttons">
+      <div id="accessible-buttons">
         <button mat-fab extended routerLink="/">List of your invoices</button>
         <button mat-fab extended routerLink="/">Invoice details</button>
       </div>
-      <div *ngIf="currentRoleTypeId < 3" id="limited-access-buttons">
+      <div *ngIf="currentRole !== 'User'" id="limited-access-buttons">
         <button mat-fab extended routerLink="/create-invoice">
           Create an invoice
         </button>
@@ -19,11 +19,11 @@
           mat-fab
           extended
           routerLink="/admin-page"
-          *ngIf="currentRoleTypeId === 1"
+          *ngIf="currentRole === 'Admin'"
         >
           Admin page
         </button>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
