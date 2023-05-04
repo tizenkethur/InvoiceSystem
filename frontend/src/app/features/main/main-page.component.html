@@ -11,7 +11,10 @@
         </button>
         <button mat-fab extended routerLink="/">Invoice details</button>
       </div>
-      <div *ngIf="currentRole !== 'User'" id="limited-access-buttons">
+      <div
+        *ngIf="currentRole === 'Admin' || currentRole === 'Book keeper'"
+        id="limited-access-buttons"
+      >
         <button mat-fab extended routerLink="/create-invoice">
           Create an invoice
         </button>

@@ -9,9 +9,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler/error-handler.interceptor';
 import { TokenInterceptor } from './core/interceptors/token/token.interceptor';
 import { AuthGuard } from './core/guards/auth/auth.guard';
-import { UserGuard } from './core/guards/role/user.guard';
-import { AdminGuard } from './core/guards/role/admin.guard';
-import { BookKeeperGuard } from './core/guards/role/book-keeper.guard';
+import { NoUserGuard } from './core/guards/role/noUser.guard';
+import { AdminsOnlyGuard } from './core/guards/role/adminsOnly.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,9 +33,8 @@ import { BookKeeperGuard } from './core/guards/role/book-keeper.guard';
       multi: true,
     },
     AuthGuard,
-    UserGuard,
-    AdminGuard,
-    BookKeeperGuard,
+    NoUserGuard,
+    AdminsOnlyGuard,
   ],
   bootstrap: [AppComponent],
 })

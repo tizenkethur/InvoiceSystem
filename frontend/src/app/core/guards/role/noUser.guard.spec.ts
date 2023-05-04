@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BookKeeperGuard } from './book-keeper.guard';
+import { NoUserGuard } from './noUser.guard';
 
-describe('BookKeeperGuard', () => {
-  let guard: BookKeeperGuard;
+describe('NoUserGuard', () => {
+  let guard: NoUserGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(BookKeeperGuard);
+    guard = TestBed.inject(NoUserGuard);
   });
 
   it('should be created', () => {

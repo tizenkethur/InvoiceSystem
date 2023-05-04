@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -12,8 +13,9 @@ import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 @Injectable({
   providedIn: 'root',
 })
-export class BookKeeperGuard {
+export class AdminsOnlyGuard {
   constructor(private authService: AuthService, private router: Router) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,7 +24,7 @@ export class BookKeeperGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.roleObservable$.toString() === RoleType[2]
+    return this.authService.currentRole === RoleType[1]
       ? true
       : this.router.navigate(['main']);
   }

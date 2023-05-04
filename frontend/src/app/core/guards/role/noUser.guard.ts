@@ -12,7 +12,7 @@ import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
 @Injectable({
   providedIn: 'root',
 })
-export class UserGuard {
+export class NoUserGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -23,7 +23,7 @@ export class UserGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.roleObservable$.toString() === RoleType[3]
+    return this.authService.roleObservable$.toString() !== RoleType[3]
       ? true
       : this.router.navigate(['main']);
   }

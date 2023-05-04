@@ -2,13 +2,7 @@ import { UserLoginViewModel } from '../../../shared/models/view/UserLoginViewMod
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  of,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
@@ -23,11 +17,13 @@ export class AuthService {
     this.getLastLoginDate()
   );
   private roleSubject = new BehaviorSubject<string>('');
+  private tokenSubject = new BehaviorSubject<string>(this.getToken());
 
   roleObservable$ = this.roleSubject.asObservable();
   usernameObservable$ = this.usernameSubject.asObservable();
   lastLoginDateObservable$ = this.lastLoginDateSubject.asObservable();
-
+  tokenObservable$ = this.tokenSubject.asObservable();
+  currentRole: string;
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken(): string {
@@ -86,7 +82,8 @@ export class AuthService {
           this.setUsername(response.username);
           this.setLastLoginDate(response.lastLoginDate.toString());
           this.roleSubject.next(RoleType[response.roleTypeId]);
-          console.log(RoleType[response.roleTypeId]);
+          this.roleObservable$.subscribe((x) => (this.currentRole = x));
+          console.log(this.currentRole);
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))

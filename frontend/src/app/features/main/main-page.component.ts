@@ -8,15 +8,8 @@ import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
-  roleTypeIdObservable$ = this.authService.roleObservable$;
-  currentRole: string;
-  
-  constructor(private authService: AuthService) {}
+export class MainPageComponent {
+  currentRole = this.authService.currentRole;
 
-  ngOnInit() {
-    this.roleTypeIdObservable$.subscribe((response) => {
-      this.currentRole = RoleType[parseInt(response)];
-    });
-  }
+  constructor(private authService: AuthService) {}
 }

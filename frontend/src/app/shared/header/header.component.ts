@@ -12,6 +12,7 @@ export class HeaderComponent {
   usernameObservable$ = this.authService.usernameObservable$;
   lastLoginDateObservable$ = this.authService.lastLoginDateObservable$;
   roleTypeIdObservable$ = this.authService.roleObservable$;
+  location = window.location.toString();
 
   constructor(private authService: AuthService) {}
 
