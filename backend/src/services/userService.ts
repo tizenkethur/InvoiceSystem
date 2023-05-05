@@ -12,6 +12,7 @@ import {
   generateDateTimeToMysql,
   getDateTimeBackFromMysql,
 } from "./dateService";
+import { UsernameListViewModel } from "models/view/UsernameListViewModel";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -88,5 +89,11 @@ export const userService = {
         lastLoginDateToDisplay.lastLoginDate
       ),
     };
+  },
+
+  async getUsernameList(): Promise<UsernameListViewModel> {
+    const list = await userRepository.getUsernameList();
+
+    return { usernameList: list };
   },
 };

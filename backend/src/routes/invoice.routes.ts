@@ -1,4 +1,4 @@
-import { invoiceController } from "controllers/invoiceController";
+import { invoiceController } from "../controllers/invoiceController";
 import express from "express";
 
 const invoiceRouter = express.Router();

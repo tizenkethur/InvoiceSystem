@@ -1,6 +1,7 @@
 import { OkPacket } from "mysql";
 import { db } from "../data/connection";
 import { UserDomainModel } from "../models/domain/UserDomainModel";
+import { UsernameListDomainModel } from "models/domain/UsernameListDomainModel";
 
 export const userRepository = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -29,5 +30,11 @@ export const userRepository = {
     const userList = await db.query<UserDomainModel[]>(query, [username]);
 
     return userList[0];
+  },
+
+  async getUsernameList(): Promise<UsernameListDomainModel[]> {
+    const query: string = `SELECT username FROM users`;
+    const usernameList = await db.query<UsernameListDomainModel[]>(query, []);
+    return usernameList;
   },
 };

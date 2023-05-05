@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment.development';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
 import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
+import { UsernameListViewModel } from 'src/app/shared/models/view/UsernameListViewModel';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class AuthService {
   lastLoginDateObservable$ = this.lastLoginDateSubject.asObservable();
   tokenObservable$ = this.tokenSubject.asObservable();
   currentRole: string;
+  
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken(): string {
@@ -93,5 +95,11 @@ export class AuthService {
   logout(): void {
     this.clearLocalStorage();
     this.router.navigate(['/login']);
+  }
+
+  getUsers(): Observable<UsernameListViewModel> {
+    return this.http.get<UsernameListViewModel>(
+      `${environment.apiUrl}/user/usernameList`
+    );
   }
 }
