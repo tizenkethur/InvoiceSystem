@@ -1,3 +1,10 @@
+<!-- Run the following commands in mySQL Workbench before running the app: 
+create database invoiceSystem;
+use invoiceSystem;
+npm i;
+
+
+About the task 
 Feladat leírása
 
 A feladat célja egy egyszerű, számlakezelő rendszer létrehozása. A felhasználó a neve és jelszava
@@ -109,4 +116,4 @@ tesztelés érdekében.
  Backend szolgáltatást Spring bootban írd meg, de adott esetben használhatsz más nyelvet
 is.
  Frontend oldalhoz használhatsz olyan könyvtárat vagy keretrendszert, amit szeretnél. De ha
-lehetséges, akkor az legyen React, Thymeleaf, vagy Angular.
+lehetséges, akkor az legyen React, Thymeleaf, vagy Angular. -->
