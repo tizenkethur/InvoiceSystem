@@ -1,3 +1,4 @@
+import { UserDomainModel } from "./../models/domain/UserDomainModel";
 import { UserRegistrationRequestModel } from "../models/common/UserRegistrationRequestModel";
 import { userRepository } from "../repositories/userRepository";
 import { conflictError, unauthorizedError } from "./generalErrorService";
@@ -12,7 +13,10 @@ import {
   generateDateTimeToMysql,
   getDateTimeBackFromMysql,
 } from "./dateService";
-import { UsernameListViewModel } from "models/view/UsernameListViewModel";
+import { UserListViewModel } from "models/view/UserListViewModel";
+import { UserViewModel } from "models/view/UserViewModel";
+import { RoleDomainModel } from "models/domain/RoleDomainModel";
+import { RoleType } from "models/enums/RoleTypeEnum";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -91,9 +95,17 @@ export const userService = {
     };
   },
 
-  async getUsernameList(): Promise<UsernameListViewModel> {
-    const list = await userRepository.getUsernameList();
+  async getUserList(): Promise<UserListViewModel> {
+    const userData: UserDomainModel[] = await userRepository
+      .getUsers()
 
-    return { usernameList: list };
+    return {
+      userList: userData.map<UserViewModel>((userData) => {
+        return {
+          id: userData.id,
+          username: userData.username
+        };
+      }),
+    };
   },
 };

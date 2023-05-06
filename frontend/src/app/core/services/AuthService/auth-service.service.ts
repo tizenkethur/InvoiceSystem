@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment.development';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
 import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
-import { UsernameListViewModel } from 'src/app/shared/models/view/UsernameListViewModel';
+import { UserListViewModel } from 'src/app/shared/models/view/UserListViewModel';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class AuthService {
   lastLoginDateObservable$ = this.lastLoginDateSubject.asObservable();
   tokenObservable$ = this.tokenSubject.asObservable();
   currentRole: string;
-  
+
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken(): string {
@@ -85,7 +85,6 @@ export class AuthService {
           this.setLastLoginDate(response.lastLoginDate.toString());
           this.roleSubject.next(RoleType[response.roleTypeId]);
           this.roleObservable$.subscribe((x) => (this.currentRole = x));
-          console.log(this.currentRole);
           this.router.navigate(['/main']);
         }),
         catchError(() => of(null))
@@ -97,9 +96,9 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  getUsers(): Observable<UsernameListViewModel> {
-    return this.http.get<UsernameListViewModel>(
-      `${environment.apiUrl}/user/usernameList`
+  getUsers(): Observable<UserListViewModel> {
+    return this.http.get<UserListViewModel>(
+      `${environment.apiUrl}/user/userList`
     );
   }
 }

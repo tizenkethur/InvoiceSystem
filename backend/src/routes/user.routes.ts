@@ -10,5 +10,5 @@ userRouter.get(
 userRouter.post("/register", userController.register);
 userRouter.post("/login", userController.login);
 
-userRouter.get("/usernameList", userController.getUsernameList);
+userRouter.get("/userList", userController.getUserList);
 export default userRouter;

@@ -4,7 +4,7 @@ import { userService } from "../services/userService";
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
 import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
 import { UserLoginViewModel } from "models/view/UserLoginViewModel";
-import { UsernameListViewModel } from "models/view/UsernameListViewModel";
+import { UserListViewModel } from "models/view/UserListViewModel";
 
 export const userController = {
   async checkIfUsernameExists(req: Request, res: Response, next: NextFunction) {
@@ -101,14 +101,13 @@ export const userController = {
       next(error);
     }
   },
-  async getUsernameList(
+  async getUserList(
     req: Request,
-    res: Response<UsernameListViewModel>,
+    res: Response<UserListViewModel>,
     next: NextFunction
   ) {
     try {
-      const data = await userService.getUsernameList();
-      console.log(data);
+      const data = await userService.getUserList();
       res.status(200).send(data);
     } catch (err) {
       next(err);

@@ -22,7 +22,7 @@ export const roleRepository = {
   },
 
   async getRoleTypeIdByUserId(userId: number): Promise<number> {
-    const query: string = `SELECT * from ROLES WHERE userId=?`;
+    const query: string = `SELECT * FROM roles WHERE userId=?`;
     const roleData = await db.query<RoleDomainModel[]>(query, [
       userId.toString(),
     ]);
