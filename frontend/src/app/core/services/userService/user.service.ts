@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../authService/auth-service.service';
-import { Observable } from 'rxjs';
 import { UserListViewModel } from 'src/app/shared/models/view/UserListViewModel';
 import { environment } from 'src/environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   getUsers(): Observable<UserListViewModel> {
     return this.http.get<UserListViewModel>(
