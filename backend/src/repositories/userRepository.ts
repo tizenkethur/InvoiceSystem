@@ -36,4 +36,12 @@ export const userRepository = {
     const users = await db.query<UserDomainModel[]>(query, []);
     return users;
   },
+
+  async deleteUser(userId: string): Promise<number> {
+    const query: string = `DELETE FROM users WHERE id = ?`;
+
+    const deleted: OkPacket = await db.query(query, [userId]);
+
+    return deleted.affectedRows;
+  },
 };

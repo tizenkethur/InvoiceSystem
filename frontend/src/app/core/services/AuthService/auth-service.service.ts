@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment.development';
 import { UserRegistrationRequestViewModel } from 'src/app/shared/models/view/UserRegistrationRequestViewModel';
 import { UserLoginRequestViewModel } from 'src/app/shared/models/view/UserLoginRequestViewModel';
 import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
-import { UserListViewModel } from 'src/app/shared/models/view/UserListViewModel';
 
 @Injectable({
   providedIn: 'root',
@@ -94,11 +93,5 @@ export class AuthService {
   logout(): void {
     this.clearLocalStorage();
     this.router.navigate(['/login']);
-  }
-
-  getUsers(): Observable<UserListViewModel> {
-    return this.http.get<UserListViewModel>(
-      `${environment.apiUrl}/user/userList`
-    );
   }
 }

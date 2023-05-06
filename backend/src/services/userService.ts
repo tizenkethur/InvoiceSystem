@@ -15,8 +15,6 @@ import {
 } from "./dateService";
 import { UserListViewModel } from "models/view/UserListViewModel";
 import { UserViewModel } from "models/view/UserViewModel";
-import { RoleDomainModel } from "models/domain/RoleDomainModel";
-import { RoleType } from "models/enums/RoleTypeEnum";
 
 export const userService = {
   async checkIfUsernameExists(username: string): Promise<boolean> {
@@ -96,16 +94,19 @@ export const userService = {
   },
 
   async getUserList(): Promise<UserListViewModel> {
-    const userData: UserDomainModel[] = await userRepository
-      .getUsers()
+    const userData: UserDomainModel[] = await userRepository.getUsers();
 
     return {
       userList: userData.map<UserViewModel>((userData) => {
         return {
           id: userData.id,
-          username: userData.username
+          username: userData.username,
         };
       }),
     };
+  },
+
+  async deleteUser(userId: string): Promise<number> {
+    return await userRepository.deleteUser(userId);
   },
 };

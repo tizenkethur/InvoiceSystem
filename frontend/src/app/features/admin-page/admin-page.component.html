@@ -31,7 +31,9 @@
             </section>
           </td>
           <td class="content">
-            <button mat-raised-button>Delete</button>
+            <button mat-raised-button (click)="deleteUser(user.id)">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>

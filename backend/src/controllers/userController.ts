@@ -113,4 +113,15 @@ export const userController = {
       next(err);
     }
   },
+
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+
+    try {
+      const data = await userService.deleteUser(id);
+      res.status(200).send(data);
+    } catch (err) {
+      next(err);
+    }
+  },
 };

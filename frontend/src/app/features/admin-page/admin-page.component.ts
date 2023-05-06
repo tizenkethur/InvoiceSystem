@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/authService/auth-service.service';
+import { UserService } from 'src/app/core/services/userService/user.service';
 import { RoleType } from 'src/app/shared/models/enums/RoleTypeEnum';
-import { UserListViewModel } from 'src/app/shared/models/view/UserListViewModel';
 import { UserViewModel } from 'src/app/shared/models/view/UserViewModel';
 
 @Component({
@@ -12,12 +11,16 @@ import { UserViewModel } from 'src/app/shared/models/view/UserViewModel';
 export class AdminPageComponent implements OnInit {
   userList: UserViewModel[];
   roleTypes = [RoleType[1], RoleType[2], RoleType[3]];
-  
-  constructor(private authService: AuthService) {}
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.authService.getUsers().subscribe((list) => {
+    this.userService.getUsers().subscribe((list) => {
       this.userList = list.userList;
     });
+  }
+
+  deleteUser(userId: number) {
+    this.userService.deleteUser(userId).subscribe();
   }
 }
