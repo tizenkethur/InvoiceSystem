@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { badRequestError } from "../services/generalErrorService";
+import {
+  badRequestError,
+  conflictError,
+} from "../services/generalErrorService";
 import { userService } from "../services/userService";
 import { UserRegistrationRequestModel } from "models/common/UserRegistrationRequestModel";
 import { UserLoginRequestViewModel } from "models/common/UserLoginRequestViewModel";
@@ -19,6 +22,12 @@ export const userController = {
       const isUsernameExists = await userService.checkIfUsernameExists(
         username
       );
+
+      if (isUsernameExists) {
+        next(conflictError("Username is already taken."));
+        return;
+      }
+
       res.status(200).send(isUsernameExists);
     } catch (err) {
       next(err);

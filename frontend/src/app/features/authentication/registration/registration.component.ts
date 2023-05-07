@@ -41,16 +41,7 @@ export class RegistrationComponent {
   }
 
   onChange() {
-    this.authService
-      .checkIfUsernameExists(this.username.value)
-      .subscribe((v) => {
-        if (v) {
-          this.snackBarService.showErrorMessage(
-            'This username is already exists.',
-            true
-          );
-        }
-      });
+    this.authService.checkIfUsernameExists(this.username.value).subscribe();
   }
 
   register(): void {
